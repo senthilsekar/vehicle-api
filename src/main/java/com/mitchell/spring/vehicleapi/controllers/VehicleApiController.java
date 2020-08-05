@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +28,7 @@ import com.mitchell.spring.vehicleapi.services.VehicleApiService;
  */
 @RestController
 @Validated
+@CrossOrigin
 public class VehicleApiController {
 
 	@Autowired
@@ -71,7 +73,7 @@ public class VehicleApiController {
 	 * @return
 	 */
 	@RequestMapping(path = "/vehicles" , method = RequestMethod.POST)
-	public ResponseEntity<?> addVehicle(@RequestBody @Valid Vehicle vehicle) {
+	public ResponseEntity<Object> addVehicle(@RequestBody @Valid Vehicle vehicle) {
 		vehicleService.addVehicle(vehicle);
 		return ResponseEntity.status(HttpStatus.CREATED).build();  //201 - Created
 	}
@@ -82,7 +84,7 @@ public class VehicleApiController {
 	 * @return
 	 */
 	@RequestMapping(path = "/vehicles" , method = RequestMethod.PUT)
-	public ResponseEntity<?> updateVehicle(@RequestBody @Valid Vehicle vehicle){
+	public ResponseEntity<Object> updateVehicle(@RequestBody @Valid Vehicle vehicle){
 		vehicleService.updateVehicle(vehicle);
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).build(); //204 - success with no body content
 		
@@ -93,7 +95,7 @@ public class VehicleApiController {
 	 * @return
 	 */
 	@RequestMapping(path = "/vehicles/{id}" , method = RequestMethod.DELETE)
-	public ResponseEntity<?> deleteVehicle(@PathVariable("id") @Valid @Min(1) Integer vehicleId){
+	public ResponseEntity<Object> deleteVehicle(@PathVariable("id") @Valid @Min(1) Integer vehicleId){
 		 vehicleService.deleteVehicle(vehicleId);
 		 return ResponseEntity.status(HttpStatus.NO_CONTENT).build(); //204 - success with no body content
 		
